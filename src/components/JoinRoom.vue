@@ -1,6 +1,7 @@
 <template>
     <b-row>
-        <b-col cols="6">
+        <b-col align-self="start">&nbsp;</b-col>
+        <b-col cols="6" align-self="center">
             <h2>
                 Join Room
                 <b-link href="#/">(Room List)</b-link>
@@ -16,14 +17,13 @@
                 <b-button type="submit" variant="primary">Join</b-button>
             </b-form>
         </b-col>
+        <b-col align-self="end">&nbsp;</b-col>
     </b-row>
 </template>
 
 <script>
-
 import axios from 'axios'
 import * as io from 'socket.io-client'
-
 export default {
   name: 'JoinRoom',
   data () {

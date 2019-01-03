@@ -2,10 +2,10 @@
     <b-row>
         <b-col cols="12">
             <h2>
-                Chat Room
+                Chat Room - <b-btn size="sm" @click.stop="logout()">Logout</b-btn>
             </h2>
             <b-list-group class="panel-body" v-chat-scroll>
-                <b-list-group-item v-for="(item, index) in chats" :key="index" class="chat">
+                <b-list-group-item v-for="item in chats" class="chat">
                     <div class="left clearfix" v-if="item.nickname === nickname">
                         <b-img left src="http://placehold.it/50/55C1E7/fff&text=ME" rounded="circle" width="75" height="75" alt="img" class="m-1" />
                         <div class="chat-body clearfix">
@@ -29,7 +29,7 @@
                 </b-list-group-item>
             </b-list-group>
             <ul v-if="errors && errors.length">
-                <li v-for="error of errors" :key="error.id">
+                <li v-for="(error,index) of errors" :key="index">
                     {{error.message}}
                 </li>
             </ul>
@@ -46,13 +46,11 @@
 </template>
 
 <script>
-
-import axios from 'axios'
 import Vue from 'vue'
+import axios from 'axios'
 import * as io from 'socket.io-client'
 import VueChatScroll from 'vue-chat-scroll'
 Vue.use(VueChatScroll)
-
 export default {
   name: 'ChatRoom',
   data () {
@@ -72,7 +70,6 @@ export default {
       .catch(e => {
         this.errors.push(e)
       })
-
     this.socket.on('new-message', function (data) {
       if (data.message.room === this.$route.params.id) {
         this.chats.push(data.message)
@@ -108,22 +105,18 @@ export default {
         text-align: left;
         margin-left: 100px;
     }
-
     .chat .right .chat-body {
         text-align: right;
         margin-right: 100px;
     }
-
     .chat .chat-body p {
         margin: 0;
         color: #777777;
     }
-
     .panel-body {
         overflow-y: scroll;
         height: 350px;
     }
-
     .chat-form {
         margin: 20px auto;
         width: 80%;

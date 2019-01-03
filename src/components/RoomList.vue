@@ -7,11 +7,11 @@
             </h2>
             <b-table striped hover :items="rooms" :fields="fields">
                 <template slot="actions" scope="row">
-                    <b-btn size="sm" @click.stop="join(row._id)">Join</b-btn>
+                    <b-btn size="sm" @click.stop="join(row.item._id)">Join</b-btn>
                 </template>
             </b-table>
             <ul v-if="errors && errors.length">
-                <li v-for="error of errors">
+                <li v-for="(error,index) of errors" :key="index">
                     {{error.message}}
                 </li>
             </ul>
@@ -20,11 +20,9 @@
 </template>
 
 <script>
-
 import axios from 'axios'
-
 export default {
-  name: 'BookList',
+  name: 'RoomList',
   data () {
     return {
       fields: {
@@ -47,6 +45,7 @@ export default {
   },
   methods: {
     join (id) {
+      console.log(id)
       this.$router.push({
         name: 'JoinRoom',
         params: { id: id }
